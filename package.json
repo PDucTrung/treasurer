@@ -1,0 +1,19 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "stake:local": "npx hardhat run scripts/stake_from_wallets.ts --network local",
+    "staking-config:local": "npx hardhat run scripts/set_stake_info.ts --network local",
+    "funds:local": "npx hardhat run scripts/add_funds_to_stake_pool.ts --network local",
+    "deploy:local": "npx hardhat run scripts/deploy.ts --network local",
+    "deploy-treasurer:local": "npx hardhat run scripts/deploy_treasurer.ts --network local",
+    "deploy:testnet": "npx hardhat run scripts/deploy.ts --network sepolia",
+    "stake:testnet": "npx hardhat run scripts/stake_from_wallets.ts --network sepolia",
+    "staking-config:testnet": "npx hardhat run scripts/set_stake_info.ts --network sepolia",
+    "funds:testnet": "npx hardhat run scripts/add_funds_to_stake_pool.ts --network sepolia",
+    "system": "npx hardhat run scripts/set_system.ts --network sepolia",
+    "staking": "npx hardhat run scripts/set_staking.ts --network local"
+  },
+  "dependencies": {
+    "express-rate-limit": "^7.2.0"
+  }
+}

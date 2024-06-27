@@ -1,0 +1,94 @@
+{
+  "name": "treasurer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/treasurer/src",
+  "projectType": "application",
+  "targets": {
+    "compile": {
+      "executor": "nx:run-commands",
+      "configurations": {},
+      "options": {
+        "cwd": "apps/treasurer",
+        "commands": ["hardhat compile"]
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/treasurer",
+        "commands": ["nodemon -e sol --exec \"hardhat compile\""]
+      }
+    },
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/treasurer",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/treasurer/src/main.ts",
+        "tsConfig": "apps/treasurer/tsconfig.app.json",
+        "assets": ["apps/treasurer/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "treasurer:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "treasurer:build:development"
+        },
+        "production": {
+          "buildTarget": "treasurer:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "cwd": "apps/treasurer",
+        "commands": [
+          "hardhat test"
+        ]
+      }
+    },
+    "coverage": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "cwd": "apps/treasurer",
+        "commands": [
+          "hardhat coverage"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
